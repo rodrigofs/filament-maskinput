@@ -74,6 +74,19 @@ class MaskInput extends TextInput
         return $this;
     }
 
+    public function getInjectJS(): RawJs
+    {
+        if ($this->maskType === MaskType::MONEY) {
+            return RawJs::make("FilamentMaskInput('{$this->getId()}').maskMoney({$this->getMoney()});");
+        }
+
+        if ($this->maskType === MaskType::DYNAMIC) {
+            return RawJs::make("FilamentMaskInput('{$this->getId()}').dynamicMask({$this->getMask()}, {$this->getMaxLength()});");
+        }
+
+        return RawJs::make("FilamentMaskInput('{$this->getId()}').maskPattern('{$this->getMask()}');");
+    }
+
     public function getMoney(): ?RawJs
     {
         return $this->evaluate($this->money);

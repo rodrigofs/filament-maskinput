@@ -1,3 +1,4 @@
+
 @php
     use Rodrigofs\FilamentMaskInput\Emun\MaskType;
     $datalistOptions = $getDatalistOptions();
@@ -9,6 +10,7 @@
     $isSuffixInline = $isSuffixInline();
     $mask = $getMask();
     $money = $getMoney();
+    $injectJS = $getInjectJS();
     $maskType = $getMaskType();
     $maxLength = $getMaxLength();
     $prefixActions = $getPrefixActions();
@@ -43,8 +45,8 @@
                 ->class(['fi-fo-text-input overflow-hidden'])
         "
     >
-        <x-filament::input
-            :attributes="
+        <x-filament::input x-init="{{ $injectJS }}"
+                           :attributes="
                 \Filament\Support\prepare_inherited_attributes($getExtraInputAttributeBag())
                     ->merge($extraAlpineAttributes, escape: false)
                     ->merge([
@@ -82,22 +84,3 @@
         </datalist>
     @endif
 </x-dynamic-component>
-
-@push('scripts')
-    <script type="text/javascript">
-        (() => {
-            @if($maskType === MaskType::MONEY)
-
-                FilamentMaskInput('{{ $id }}').maskMoney(@js($money))
-            @endif
-            @if($maskType === MaskType::DYNAMIC)
-
-                FilamentMaskInput('{{ $id }}').dynamicMask(@js($mask), @js($maxLength));
-            @endif
-            @if($maskType === MaskType::PATTERN)
-
-                FilamentMaskInput('{{ $id }}').maskPattern(@js($mask));
-            @endif
-        })()
-    </script>
-@endpush
