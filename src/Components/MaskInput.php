@@ -5,9 +5,11 @@ namespace Rodrigofs\FilamentMaskInput\Components;
 use Closure;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\RawJs;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use Rodrigofs\FilamentMaskInput\Emun\MaskType;
+use Rodrigofs\FilamentMaskInput\Exception\FilamentMaskInputException;
 
 class MaskInput extends TextInput
 {
@@ -95,5 +97,17 @@ class MaskInput extends TextInput
     public function getMaskType(): MaskType
     {
         return $this->maskType;
+    }
+
+    /**
+     * @throws FilamentMaskInputException
+     */
+    public function render(): View
+    {
+        if (! filled($this->money) && ! filled($this->mask)) {
+            throw new FilamentMaskInputException('[MaskInput::class] method mask or money should be called.');
+        }
+
+        return parent::render();
     }
 }

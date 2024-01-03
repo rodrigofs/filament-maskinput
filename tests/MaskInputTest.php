@@ -5,6 +5,7 @@ use Filament\Support\RawJs;
 use Illuminate\Support\Str;
 use Rodrigofs\FilamentMaskInput\Components\MaskInput;
 use Rodrigofs\FilamentMaskInput\Emun\MaskType;
+use Rodrigofs\FilamentMaskInput\Exception\FilamentMaskInputException;
 use Rodrigofs\FilamentMaskInput\Tests\Fixtures\Livewire;
 
 it('state can be hydrated from array', function () {
@@ -13,28 +14,25 @@ it('state can be hydrated from array', function () {
         ->statePath('data')
         ->components([
             MaskInput::make('money')
-                ->statePath($statePathMoney = 'money'),
-
-            MaskInput::make('dynamic')
-                ->statePath($statePathDynamic = 'dynamic'),
-
-            MaskInput::make('pattern')
-                ->statePath($statePathPattern = 'pattern'),
+                ->statePath($statePath = 'money'),
         ])
-
         ->fill([
-            $statePathDynamic => $stateDynamic = '111.111.111-11',
-            $statePathPattern => $statePattern = '111.111.111-11',
-            $statePathMoney => $stateMoney = '12,78',
+            $statePath => $state = '12,78',
         ]);
 
     expect($livewire)
         ->getData()->toBe([
-            $statePathDynamic => $stateDynamic,
-            $statePathPattern => $statePattern,
-            $statePathMoney => $stateMoney,
+            $statePath => $state,
         ]);
 });
+
+it('throws exception if mask or money should be called', function () {
+    $field = (new MaskInput($name = Str::random()))
+        ->container(ComponentContainer::make(Livewire::make()));
+
+    $field->toHtml();
+
+})->throws(FilamentMaskInputException::class);
 
 it('is mask type PATTERN', function () {
     $field = (new MaskInput($name = Str::random()))
