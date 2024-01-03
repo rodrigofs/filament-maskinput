@@ -1,0 +1,68 @@
+{
+    "name": "rodrigofs/filament-maskinput",
+    "description": "Alternative the alpine mask.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rodrigofs\\FilamentMaskInput\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rodrigofs\\FilamentMaskInput\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rodrigo Fernandes",
+            "email": "rodrigo-delphi@live.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "spatie/laravel-package-tools": "^1.15.0",
+        "illuminate/contracts": "^10.19",
+        "filament/filament": "^3.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.0",
+        "larastan/larastan": "v2.7.0",
+        "orchestra/testbench": "^8.0",
+        "phpunit/phpunit": "^10",
+        "nunomaduro/collision": "^v7.8.1",
+        "pestphp/pest": "^v2.24.3",
+        "pestphp/pest-plugin-laravel": "v2.2.0",
+        "pestphp/pest-plugin-livewire": "v2.1.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test:pest": "vendor/bin/pest",
+        "test:pint": "vendor/bin/pint",
+        "test:phpstan": "vendor/bin/phpstan",
+        "test": [
+            "@test:pest",
+            "@test:phpstan",
+            "@test:pint"
+        ]
+    },
+    "sort-packages": true,
+    "allow-plugins": {
+        "composer/package-versions-deprecated": true,
+        "pestphp/pest-plugin": true,
+        "phpstan/extension-installer": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rodrigofs\\FilamentMaskInput\\FilamentMaskInputServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

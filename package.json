@@ -1,0 +1,15 @@
+{
+    "name": "filament-maskinput",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "author": "Rodrigo Fernandes <rodrigo-delphi@live.com>",
+    "license": "MIT",
+    "scripts": {
+        "build:scripts": "node bin/build.js"
+    },
+    "devDependencies": {
+        "esbuild": "^0.19.10",
+        "vanilla-masker": "^1.2.0"
+    }
+}
