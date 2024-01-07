@@ -6,10 +6,13 @@
     "author": "Rodrigo Fernandes <rodrigo-delphi@live.com>",
     "license": "MIT",
     "scripts": {
-        "build:scripts": "node bin/build.js"
+        "build:scripts": "node bin/build.js",
+        "test": "jasmine --config=jasmine.json --require=resources/js/tests/helpers/domjs.js"
     },
     "devDependencies": {
         "esbuild": "^0.19.10",
-        "vanilla-masker": "^1.2.0"
-    }
+        "jasmine": "^5.1.0",
+        "jsdom": "^23.2.0"
+    },
+    "dependencies": {}
 }

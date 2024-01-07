@@ -7,7 +7,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Support\RawJs;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
-use Illuminate\Support\Stringable;
 use Rodrigofs\FilamentMaskInput\Emun\MaskType;
 use Rodrigofs\FilamentMaskInput\Exception\FilamentMaskInputException;
 
@@ -20,31 +19,24 @@ class MaskInput extends TextInput
     protected ?RawJs $money = null;
 
     /**
-     * @param  int|null  $precision Decimal precision
-     * @param  string|null  $separator Decimal separator
-     * @param  string|null  $delimiter Number delimiter
-     * @param  string|null  $unit Money unit -> 'R$ 12.345.678,90'
-     * @param  string|null  $suffixUnit Money unit -> '12.345.678,90 R$'
-     * @param  bool  $zeroCents Force type only number instead decimal, masking decimals with ",00" Zero cents -> 'R$ 1.234.567.890,00'
+     * @param  int|null  $decimalPrecision Precision decimal
+     * @param  string|null  $decimalSeparator Decimal separator
+     * @param  string|null  $thousandsSeparator Thousands separator
+     * @param  bool | null  $allowNegative Allow negative numbers
      * @return $this
      */
-    public function money(?int $precision = null, ?string $separator = null, ?string $delimiter = null, ?string $unit = null, ?string $suffixUnit = null, ?bool $zeroCents = null): static
+    public function money(?int $decimalPrecision = null, ?string $decimalSeparator = null, ?string $thousandsSeparator = null, ?bool $allowNegative = false): static
     {
-
-        $suffixUnit = $suffixUnit ?? config('filament-maskinput.suffixUnit');
-        $zeroCents = $zeroCents ?? config('filament-maskinput.zeroCents');
-        $precision = $precision ?? config('filament-maskinput.precision');
-        $separator = $separator ?? config('filament-maskinput.separator');
-        $delimiter = $delimiter ?? config('filament-maskinput.delimiter');
-        $unit = $unit ?? config('filament-maskinput.unit');
+        $decimalPrecision = $decimalPrecision ?? config('filament-maskinput.decimalPrecision');
+        $thousandsSeparator = $thousandsSeparator ?? config('filament-maskinput.thousandsSeparator');
+        $decimalSeparator = $decimalSeparator ?? config('filament-maskinput.decimalSeparator');
+        $allowNegative = $allowNegative ?? config('filament-maskinput.allowNegative');
 
         $json = Str::of('{')
-            ->when($suffixUnit, fn (Stringable $string): Stringable => $string->append("suffixUnit: '{$suffixUnit}',"))
-            ->when($zeroCents, fn (Stringable $string): Stringable => $string->append('zeroCents: true,'))
-            ->append("precision: {$precision},")
-            ->append("separator: '{$separator}',")
-            ->append("delimiter: '{$delimiter}',")
-            ->append("unit: '{$unit}'")
+            ->append("decimalPrecision: {$decimalPrecision},")
+            ->append("thousandsSeparator: '{$thousandsSeparator}',")
+            ->append("decimalSeparator: '{$decimalSeparator}',")
+            ->append("allowNegative: '{$allowNegative}'")
             ->finish('}');
 
         $this->maskType = MaskType::MONEY;

@@ -51,12 +51,10 @@ php artisan vendor:publish --tag="config"
 - **money**
     - **Description**: Configures the input field for monetary values.
     - **Parameters**:
-        - `$precision` (int|null): Decimal precision.
-        - `$separator` (string|null): Decimal separator.
-        - `$delimiter` (string|null): Thousands delimiter.
-        - `$unit` (string|null): Currency unit prefix.
-        - `$suffixUnit` (string|null): Currency unit suffix.
-        - `$zeroCents` (bool|null): Enables or disables zero cents.
+        - `$decimalPrecision` (int|null): Decimal precision.
+        - `$decimalSeparator` (string|null): Decimal separator.
+        - `$thousandsSeparator` (string|null): Thousands delimiter.
+        - `$allowNegative` (bool|null): Allow negative.
 
 - **mask**
     - **Description**: Sets the mask pattern for the input.
@@ -74,6 +72,12 @@ php artisan vendor:publish --tag="config"
 ```php
 MaskInput::make('money')
 ->money();
+
+MaskInput::make('money')
+->money(decimalPrecision: 3, allowNegative: true);
+
+output: 1.234,56
+
 ```
 
 #### Dynamic Input
@@ -82,6 +86,8 @@ MaskInput::make('dynamic')
 ->mask(RawJs::make("['999.999.999-99', '99.999.999/9999-99']"))
 ->stripCharacters(['.','-', '/'])
 ->maxLength(14) // Acts as a trigger for mask switching
+
+output: 123.456.789-01 or 12.345.678/9012-34
 ```
 
 #### Pattern Input
@@ -89,6 +95,24 @@ MaskInput::make('dynamic')
 MaskInput::make('pattern')
 ->mask('99999-999')
 ->stripCharacters(['-'])
+
+output: 12345-678
+```
+
+```php
+MaskInput::make('pattern')
+->mask('SS.SS.SSSSS.S.S.SSSSSS')
+->stripCharacters(['.'])
+
+output: 9B.GR.D08X0.4.G.117974
+```
+
+```php
+MaskInput::make('pattern')
+->mask('AAA-9999')
+->stripCharacters(['-'])
+
+output: ABC-1234
 ```
 
 ## Testing

@@ -1,4 +1,6 @@
-import VMasker from 'vanilla-masker';
+
+import VMasker from '../vendor/vanilla-masker';
+
 
 export default (elementId) => {
     const inputElement = document.getElementById(elementId);
