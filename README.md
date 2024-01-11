@@ -4,8 +4,6 @@
 [![GitHub Code Style Action Status](https://github.com/rodrigofs/filament-maskinput/actions/workflows/fix-php-code-styling.yml/badge.svg)](https://github.com/rodrigofs/filament-maskinput/actions/workflows/fix-php-code-styling.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/rodrigofs/filament-maskinput.svg?style=flat-square)](https://packagist.org/packages/rodrigofs/filament-maskinput)
 
-This package allows you to use a javascript library for formatting form fields called [vanilla-masker](), despite being old it works very well..
-
 # Motivation for Creating the Filament Mask Input Package
 
 ## The Problem:
@@ -32,7 +30,7 @@ composer require rodrigofs/filament-maskinput
 
 ## Configuration
 
-You can configure the **filament-maskinput** package through the **config/filament-maskinput.php** file, setting default values for parameters like **precision**, **separator**, **delimiter**, **unit**, and **suffixUnit**.
+You can configure the **filament-maskinput** package through the **config/filament-maskinput.php** file, setting default values for parameters like **allowNegative**, **decimalPrecision**, **thousandsSeparator** and **decimalSeparator**.
 
 #### Optionally, you can publish the config using
 
@@ -76,7 +74,7 @@ MaskInput::make('money')
 MaskInput::make('money')
 ->money(decimalPrecision: 3, allowNegative: true);
 
-output: 1.234,56
+output: "-1.234,560"
 
 ```
 
@@ -87,7 +85,7 @@ MaskInput::make('dynamic')
 ->stripCharacters(['.','-', '/'])
 ->maxLength(14) // Acts as a trigger for mask switching
 
-output: 123.456.789-01 or 12.345.678/9012-34
+output: "123.456.789-01" or "12.345.678/9012-34"
 ```
 
 #### Pattern Input
@@ -96,7 +94,7 @@ MaskInput::make('pattern')
 ->mask('99999-999')
 ->stripCharacters(['-'])
 
-output: 12345-678
+output: "12345-678"
 ```
 
 ```php
@@ -104,7 +102,7 @@ MaskInput::make('pattern')
 ->mask('SS.SS.SSSSS.S.S.SSSSSS')
 ->stripCharacters(['.'])
 
-output: 9B.GR.D08X0.4.G.117974
+output: "9B.GR.D08X0.4.G.117974"
 ```
 
 ```php
@@ -112,7 +110,7 @@ MaskInput::make('pattern')
 ->mask('AAA-9999')
 ->stripCharacters(['-'])
 
-output: ABC-1234
+output: "ABC-1234"
 ```
 
 ## Testing
