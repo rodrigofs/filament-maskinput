@@ -1,4 +1,3 @@
-
 import VMasker from '../vendor/vanilla-masker';
 
 
@@ -20,10 +19,16 @@ export default (elementId) => {
     }
 
     const dynamicMask = (masks, maxlength = 1) => {
-        VMasker(inputElement).maskPattern(masks[0]);
-        inputElement.addEventListener('input', (event) => inputHandler(masks, maxlength, event), false);
-    }
+        if (inputElement.value.length > 0 && inputElement.value.length < maxlength) {
+            VMasker(inputElement).maskPattern(masks[0]);
 
+        } else {
+            VMasker(inputElement).maskPattern(masks[1]);
+        }
+
+        inputElement.addEventListener('input', (event) => inputHandler(masks, maxlength, event), false);
+
+    }
     const maskPattern = (mask) => {
         VMasker(inputElement).maskPattern(`${mask}`);
     }
@@ -32,5 +37,5 @@ export default (elementId) => {
         VMasker(inputElement).maskMoney(moneyMask);
     }
 
-    return { dynamicMask, maskPattern, maskMoney };
+    return {dynamicMask, maskPattern, maskMoney};
 };
