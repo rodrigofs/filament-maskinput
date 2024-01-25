@@ -19,10 +19,10 @@ class MaskInput extends TextInput
     protected ?RawJs $money = null;
 
     /**
-     * @param  int|null  $decimalPrecision Precision decimal
-     * @param  string|null  $decimalSeparator Decimal separator
-     * @param  string|null  $thousandsSeparator Thousands separator
-     * @param  bool | null  $allowNegative Allow negative numbers
+     * @param  int|null  $decimalPrecision  Precision decimal
+     * @param  string|null  $decimalSeparator  Decimal separator
+     * @param  string|null  $thousandsSeparator  Thousands separator
+     * @param  bool | null  $allowNegative  Allow negative numbers
      * @return $this
      */
     public function money(?int $decimalPrecision = null, ?string $decimalSeparator = null, ?string $thousandsSeparator = null, ?bool $allowNegative = false): static
