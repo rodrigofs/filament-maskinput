@@ -2,6 +2,15 @@
 
 All notable changes to filament-maskinput will be documented in this file.
 
+## v1.0.4 - 2024-01-26
+
+### What's Changed
+
+- **fix:** set mask dynamically in edit mode resource;
+- **chore:** deleted directory .idea;
+- **build:** update dependencies;
+- **style:** ajust code-style;
+
 ## v1.0.3 - 2024-01-08
 
 **What's Changed**
