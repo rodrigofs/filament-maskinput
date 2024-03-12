@@ -61,7 +61,7 @@ class MaskInput extends TextInput
         return $this;
     }
 
-    public function maxLength(int | Closure $length): static
+    public function maxLength(int | Closure | null $length): static
     {
         $this->maxLength = $length;
 
